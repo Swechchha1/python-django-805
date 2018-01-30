@@ -1,0 +1,21 @@
+{% load static %}
+<html>
+ <head>
+   <title>uStudy</title>
+   <link rel='stylesheet' href="{% static 'css/style.css' %}" />
+ </head>
+ <body>
+   <div id ="container">
+   <h1>Welcome to {{our_greeting | title}}!</h1>
+   {% if day_list %}
+    <ul>
+     {% for day in day_list %}
+      <li>{{ day|slice:":3" }}</li>
+     {% endfor %}
+    </ul>
+   {% else %}
+    <p>Days of week is not defined. </p>
+   {% endif %}
+  </div>
+ </body>
+</html>
