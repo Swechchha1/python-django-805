@@ -1,0 +1,28 @@
+
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container">
+  <form id="contact" action="" method="post">
+    <br>
+      <fieldset>
+       <legend>Quick Contact</legend>
+        First name:<br>
+        <input type="text" name="firstname" ><br>
+        Last name:<br>
+        <input type="text" name="lastname" ><br>
+        Contact Number:<br>
+        <input type="text" name="contact number" ><br>
+        Email:<br>
+        <input type="text" name="contact number" ><br>
+        Message:<br>
+        <textarea placeholder="Type your Message Here...." tabindex="0">
+        </textarea><br>
+        <br>
+        <input type="submit" value="Submit">
+      </fieldset>
+    </form>
+</div>
+
+{% endblock %}
