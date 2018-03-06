@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Lab 6</title>
+
+	<style>
+		li {
+			list-style: none;
+		}
+
+		.centered {
+			text-align: center;
+		}
+
+		.problem {
+			text-size: 1.5em;
+			font-weight: 700;
+			padding: 10px 20px;
+		}
+
+	</style>
+
+</head>
+
+<body>
+	<div class="header centered">
+		<h1>Welcome To Lab 6</h1>
+		<p><small>It's good to see you again, you like nice today.</small></p>
+
+		<h3>Instructions</h3>
+		<p>Read, and then do. It's that simple.</p>
+		<p>Add to workspace/labs/week6 and push to git. You get me?</p>
+	</div>
+
+	<div id="prob1">
+		<p class='problem'>1. When I click the button below, it should change from "click me!" to "I was clicked!"</p>
+		<button id ="header1" onclick="change_header()">click me!</button>
+
+	</div>
+
+	<div id="prob2">
+		<p class='problem'>2. There are two buttons below. When a button is clicked, the other
+			bottom should appear and the button that was clicked should disappear.</p>
+
+		<button id="header2" onclick="swap_button(this);">Button A: Show B</button>
+		<button id="header3" onclick="swap_button(this);">Button B: Show A</button>
+	</div>
+
+	<div id="prob4">
+		<p class='problem'>3. My favorite color is is pink. When I click the button below. I want
+			this header to change to my favorite color</p>
+		<button id ="header4" onclick="change_color()">Pink Is My Favorite Color</button>
+	</div>
+
+	<div id="prob4">
+		<p class='problem'>4. I like to say hi to people. There is an unorded list below and a button. When I click the button,
+			I want another list item to appear greeting a new person.</p>
+
+		<button onclick="greeting_people();">Say Hi!</button>
+		<ul id="header5"></ul>
+
+	</div>
+
+	<div id="prob5">
+		<p class='problem'>5. I like to browse the web. But I'm a nerd, and only use the console.
+			There is a text box and button below. I want to put a url into the text box, click the button, and see the response in the console.</p>
+
+		<input type="text" id="responsecons">
+		<button onClick="myFunction();">Fetch!</button>
+
+	</div>
+
+	<div id="prob6">
+		<p class='problem'>6. I like my data like I like my news...fake. Fill the empty ul below with some fake data from https://jsonplaceholder.typicode.com/ when I click the fetch button.</p>
+
+		<button onclick = "json_parameters();" >Fetch!</button>
+		<ul id ="ul"></ul>
+	</div>
+
+<script>
+	//alert('Have fun! Submit by placing your finished file in workspace/labs/week6 and push to git. Collaborate via slack.');
+	function change_header(){
+	document.getElementById("header1").innerHTML = "I was clicked!";
+	}
+
+	function swap_button(elem) {
+
+	var swap1 = document.getElementById("header2");
+	var swap2 = document.getElementById("header3");
+
+	if (elem.id == "header2"){
+	swap1.style.display = 'none';
+	swap2.style.display = 'block';
+	}
+
+	if (elem.id == "header3") {
+	swap2.style.display = 'none';
+	swap1.style.display = 'block';
+	}
+	}
+
+	function change_color() {
+    document.getElementById("header4").style.color = 'pink';
+	}
+
+	var num = 1;
+    function greeting_people() {
+        var person = "Hello, New Person " + num + "!";
+        var ul = document.getElementById("header5");
+        var li = document.createElement("li");
+        li.appendChild(document.createTextNode(person));
+        ul.appendChild(li);
+        num++;
+    }
+
+
+	function myFunction() {
+    var output_type = null;
+    var output = null;
+    var url = document.getElementById("responsecons").value;
+    fetch(url)
+        .then(response => {
+            output_type = response.headers.get("content-type");
+            result = response.text();
+            console.log(result);
+            return result;
+        })
+        .then(result => {
+
+            if (output_type.indexOf('text') >= 0) {
+                output = result;
+                console.log(output);
+            } else if (output_type.indexOf('json') >= 0) {
+                output = JSON.parse(result)
+
+                console.log(output);
+            } else {
+
+                console.log("error");
+            }
+
+
+        });
+}
+
+	function json_parameters() {
+    var url = 'https://jsonplaceholder.typicode.com/posts/'
+    fetch(url)
+        .then(response => response.json())
+        .then(json => json_parameters_list(json));
+}
+
+    function json_parameters_list(json) {
+    console.log(json)
+    json.forEach(function(values) {
+        var ul = document.getElementById("ul");
+        var li = document.createElement("li");
+        li.appendChild(document.createTextNode(JSON.stringify(values, ['userId', 'id', 'title', 'body'])));
+        ul.appendChild(li);
+    });
+}
+
+</script>
+</body>
+
+</html>
